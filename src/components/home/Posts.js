@@ -6,7 +6,7 @@ const Posts = props => {
   return (
     <div>
       <h2>Posts</h2>
-      { props.posts.map(post => <Post post={ post } key={ post.key } />) }
+      { props.posts.map(post => <Post post={ post } key={ post.id } />) }
     </div>
   );
 };

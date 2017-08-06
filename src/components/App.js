@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import Navbar from './common/Navbar';
 import RouterOutput from './Routes';
 import { getAllPosts } from '../actions/postActions';
@@ -35,4 +36,4 @@ const mapDispatchToProps = dispatch =>
     getAllPosts
   }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
