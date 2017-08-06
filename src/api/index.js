@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 // Make random token using string to Base64
+// btoa is the least descriptive name they could have used
 const makeToken = () => {
   let token = btoa((Math.random()*1000*1000).toString());
   localStorage.setItem('token', token);
