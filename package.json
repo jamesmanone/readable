@@ -7,7 +7,8 @@
     "start": "npm-run-all --parallel lint:watch serve",
     "lint": "esw webpack.config.* src server.js --color",
     "lint:watch": "npm run lint -- --watch",
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js --ignore 'src/'",
+    "build": "webpack -p --config webpack.config.production.js"
   },
   "author": "James Martin",
   "license": "ISC",
@@ -20,7 +21,6 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-1": "^6.24.1",
     "body-parser": "^1.17.1",
-    "bootstrap": "^3.3.7",
     "clone": "^2.1.1",
     "cors": "^2.8.3",
     "dotenv": "^4.0.0",

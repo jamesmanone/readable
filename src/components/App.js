@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import Navbar from './common/Navbar';
+import RouterOutput from './Routes';
 
 class App extends Component {
   render() {
     return (
-      <h1>Hi there! &#x1F600;</h1>
+        <div>
+          <Navbar />
+          <RouterOutput />
+        </div>
     );
   }
 }

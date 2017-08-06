@@ -1,5 +1,5 @@
 const clone = require('clone')
-const config = require('./config')
+const config = require('../config')
 
 let db = {}
 
@@ -32,7 +32,7 @@ function getData (token) {
 
 function getAll (token) {
   return new Promise((res) => {
-    res(getData(token))    
+    res(getData(token))
   })
 }
 
