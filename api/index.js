@@ -31,6 +31,18 @@ router.get('/categories', (req, res) => {
       );
 });
 
+router.post('/categories', bodyParser.json(), (req, res) => {
+  categories.newCategory(req.token, req.body.category)
+    .then(
+      (data) => res.send(data),
+      (error) => {
+        res.status(500).send({
+          error: 'There was an error'
+        });
+      }
+    );
+});
+
 router.get('/:category/posts', (req, res) => {
     posts.getByCategory(req.token, req.params.category)
       .then(

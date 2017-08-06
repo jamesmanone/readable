@@ -36,6 +36,17 @@ function getAll (token) {
   })
 }
 
+function newCategory (token, category) {
+  return new Promise((res) => {
+    db[token].categories.push({
+      name: category,
+      path: category
+    })
+    res(getData(token))
+  })
+}
+
 module.exports = {
-  getAll
+  getAll,
+  newCategory
 }
