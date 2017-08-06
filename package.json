@@ -1,25 +1,47 @@
 {
-  "name": "reddit-clone-server",
+  "name": "Readable",
   "version": "0.0.1",
-  "description": "A server for the Udacity Reddit Clone project for ReactND",
-  "main": "index.js",
-  "keywords": [
-    "udacity",
-    "redux",
-    "readable",
-    "react"
-  ],
-  "author": "David Harris",
+  "description": "A Udacity React Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm-run-all --parallel lint:watch serve",
+    "lint": "esw webpack.config.* src server.js --color",
+    "lint:watch": "npm run lint -- --watch",
+    "serve": "nodemon server.js"
+  },
+  "author": "James Martin",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-1": "^6.24.1",
     "body-parser": "^1.17.1",
+    "bootstrap": "^3.3.7",
+    "clone": "^2.1.1",
     "cors": "^2.8.3",
     "dotenv": "^4.0.0",
+    "eslint": "^4.3.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-watch": "^3.1.2",
     "express": "^4.15.2",
-    "clone": "^2.1.1",
-    "redux":"^3.7.2",
-    "react-redux":"^5.0.5",
-    "react-router":"^4.1.1",
-    "react-router-dom":"4.1.1"
+    "html-webpack-plugin": "^2.30.1",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
+    "open": "^0.0.5",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "4.1.1",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "webpack": "^3.4.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.18.2"
   }
- }
+}
