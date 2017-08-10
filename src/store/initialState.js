@@ -8,5 +8,9 @@ export default {
     body: '',
     author: '',
     category: '',
+  },
+  categories: {
+    categories:[],
+    fetching: false
   }
 };

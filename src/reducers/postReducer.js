@@ -6,6 +6,8 @@ export default (state={}, action) => {
       return {...state, fetching: true};
     case types.FETCH_POSTS_FULFILLED:
       return {...state, posts: action.payload, fetching: false};
+    case types.SUBMIT_POST_FULFILLED:
+      return {...state, posts: [...state.posts, action.payload]};
     default:
       return state;
   }

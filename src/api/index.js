@@ -19,7 +19,8 @@ const config = {
 
 export const getCategories = () => {
   return axios.get('/api/categories', config)
-    .then(res => res.data);
+    .then(res => res.data.categories)
+    .then(data => data.map(cat => cat.name));
 };
 
 export const newCategory = category => {
@@ -42,7 +43,7 @@ export const getPost = postId => {
     .then(res => res.data);
 };
 
-export const makePost = post => {
+export const submitPost = post => {
   return axios.post('/api/posts', post, config)
     .then(res => res.data);
 };

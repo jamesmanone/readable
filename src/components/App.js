@@ -6,10 +6,12 @@ import { withRouter } from 'react-router-dom';
 import Navbar from './common/Navbar';
 import RouterOutput from './Routes';
 import { getAllPosts } from '../actions/postActions';
+import { getAllCategories } from '../actions/categoryActions';
 
 class App extends Component {
   componentDidMount() {
     this.props.posts.length || this.props.getAllPosts();
+    this.props.categories.length || this.props.getAllCategories();
   }
 
   render() {
@@ -24,16 +26,22 @@ class App extends Component {
 
 App.propTypes = {
   posts: PropTypes.array,
-  getAllPosts: PropTypes.func.isRequired
+  categories: PropTypes.array,
+  getAllPosts: PropTypes.func.isRequired,
+  getAllCategories: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
-  return {posts: state.posts.posts};
+  return {
+    posts: state.posts.posts,
+    categories: state.categories.categories
+  };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    getAllPosts
+    getAllPosts,
+    getAllCategories
   }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

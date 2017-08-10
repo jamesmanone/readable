@@ -23,5 +23,21 @@ export const changeCategory = category => {
 
 export const setPost = post => {
   return dispatch =>
-    dispatch({type: types.SET_POST});
+    dispatch({type: types.SET_POST, payload: post});
+};
+
+export const submitPost = post => {
+  return dispatch => {
+    dispatch({type: types.SUBMIT_POST_PENDING});
+    const id = btoa((Math.random()*1000*1000).toString());
+    const timestamp = Date.now();
+    post = {...post, id, timestamp};
+    return api.submitPost(post)
+      .then(res => dispatch({
+        type: types.SUBMIT_POST_FULFILLED,
+        payload: res
+      }))
+      .then(() => setPost({title:'',body:'',category:''}))
+      .catch(e => dispatch({type: types.SUBMIT_POST_REJECTED}));
+  };
 };
