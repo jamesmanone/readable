@@ -1,7 +1,11 @@
 export default {
   posts: {
     posts: [],
-    fetching: false
+    fetching: false,
+    orderBy: {
+      votes: false,
+      date: true
+    }
   },
   postForm: {
     title: '',

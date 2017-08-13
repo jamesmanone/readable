@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeDisplayDate } from '../../utils';
+import { ListGroupItem } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 const Post = props => {
   const { post } = props;
-  const timestamp = makeDisplayDate(post.timestamp);
+  const timestamp = makeDisplayDate(post.createdAt);
   return (
-    <div>
-      <h3>{ post.title }</h3>
-      <p>{ post.body }</p>
-      <p><small>
-        Posted by { post.author } on { timestamp } in { post.category }.
-      </small></p>
-    </div>
+    <ListGroupItem header={post.title} onClick={function() {history.push(`/post/${post.id}`);}}>
+        {post.author} on {timestamp}
+    </ListGroupItem>
   );
 };
 

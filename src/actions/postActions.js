@@ -12,3 +12,15 @@ export const getAllPosts = () => {
       .catch(e => dispatch({type: types.FETCH_POSTS_REJECTED}));
   };
 };
+
+export const orderByDate = () => {
+  return dispatch => {
+    dispatch({type: types.ORDER_POSTS_BY_DATE});
+  };
+};
+
+export const orderByVotes = () => {
+  return dispatch => {
+    dispatch({type: types.ORDER_POSTS_BY_VOTES});
+  };
+};

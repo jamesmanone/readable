@@ -37,7 +37,7 @@ export const submitPost = post => {
         type: types.SUBMIT_POST_FULFILLED,
         payload: res
       }))
-      .then(() => setPost({title:'',body:'',category:''}))
+      .then(() => dispatch({type: types.SET_POST, payload: {title:'',body:'',category:''}}))
       .catch(e => dispatch({type: types.SUBMIT_POST_REJECTED}));
   };
 };

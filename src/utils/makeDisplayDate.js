@@ -53,10 +53,10 @@ const getMonth = month => {
 export default timestamp => {
   const ts = new Date(timestamp);
   const day = getDay(ts.getDay());
-  const date = ts.getDate();
+  const date = ts.getDate() > 9 ? ts.getDate() : parseInt(`0${ts.getDate()}`);
   const month = getMonth(ts.getMonth());
   const year = ts.getFullYear();
-  const hours = ts.getHours();
-  const minutes = ts.getMinutes();
-  return `${day} ${date}${month} ${year} at ${hours}:${minutes}`;
+  const hours = ts.getHours() > 9 ? ts.getHours() : `0${ts.getHours()}`;
+  const minutes = ts.getMinutes() ? ts.getMinutes() : `0${ts.getMinutes()}`;
+  return `${day} ${date}${month}${year} at ${hours}:${minutes}`;
 };

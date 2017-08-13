@@ -12,7 +12,7 @@ export default (state={}, action) => {
     case types.CHANGE_CATEGORY:
       return {...state, category: action.payload};
     case types.SET_POST:
-      return {...action.payload};
+      return {...state, ...action.payload};
     default:
       return state;
   }

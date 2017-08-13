@@ -18,4 +18,4 @@ class Routes extends Component {
   }
 }
 
-export default withRouter(Routes);
+export default Routes;

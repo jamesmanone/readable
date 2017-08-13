@@ -1,120 +1,72 @@
-const clone = require('clone')
+const { Post } = require('../model');
 
-let db = {}
-
-const defaultData = {
-  "8xf0y6ziyjabvozdd253nd": {
-    id: '8xf0y6ziyjabvozdd253nd',
-    timestamp: 1467166872634,
+const defaultData = [
+  {
+    id: 'shcy10293',
+    createdAt: 1467166872634,
     title: 'Udacity is the best place to learn React',
     body: 'Everyone says so after all.',
     author: 'thingtwo',
-    category: 'react',
+    category: {id: 'mwofm40sl', model: 'Category'},
     voteScore: 6,
-    deleted: false 
   },
-  "6ni6ok3ym7mf1p33lnez": {
-    id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
+  {
+    id: 'kel3829sk',
+    createdAt: 1468479767190,
     title: 'Learn Redux in 10 minutes!',
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
-    category: 'redux',
+    category: {id: 'kd92kdmcj', model: 'Category'},
     voteScore: -5,
-    deleted: false
   }
+];
+
+const getByCategory = category => {
+  return Post.findByCategory(category)
 }
 
-function getData (token) {
-  let data = db[token]
-  if (data == null) {
-    data = db[token] = clone(defaultData)
-  }
-  return data
+const get = id => {
+  return Post.find({id}).populate('comments').exec();
 }
 
-function getByCategory (token, category) {
-  return new Promise((res) => {
-    let posts = getData(token)
-    let keys = Object.keys(posts)
-    let filtered_keys = keys.filter(key => posts[key].category === category && !posts[key].deleted)
-    res(filtered_keys.map(key => posts[key]))
-  })
+const getAll = () => {
+  return Post.find().exec();
 }
 
-function get (token, id) {
-  return new Promise((res) => {
-    const posts = getData(token)
-    res(
-      posts[id].deleted 
-        ? {}
-        : posts[id]
-    )
-  })
+const add = post => {
+  return Post.create(post)
 }
 
-function getAll (token) {
-  return new Promise((res) => {
-    const posts = getData(token)
-    let keys = Object.keys(posts)
-    let filtered_keys = keys.filter(key => !posts.deleted)
-    res(filtered_keys.map(key => posts[key]))
-  })
+const vote = (id, option) => {
+  return Post.findById(id)
+    .then(post => {
+      if(option === 'upVote') Post.upVote(true);
+      else Post.downVote(true);
+      return post;
+    });
 }
 
-function add (token, post) {
-  return new Promise((res) => {
-    let posts = getData(token)
-    
-    posts[post.id] = {
-      id: post.id,
-      timestamp: post.timestamp,
-      title: post.title,
-      body: post.body,
-      author: post.author,
-      category: post.category,
-      voteScore: 1,
-      deleted: false
-    }
-     
-    res(posts[post.id])
-  })
+const disable = id => {
+  return Post.findById(id)
+    .then(post => post.remove())
+    .then(() => true)
+    .catch(() => false);
 }
 
-function vote (token, id, option) {
-  return new Promise((res) => {
-    let posts = getData(token)
-    post = posts[id]
-    switch(option) {
-        case "upVote":
-            post.voteScore = post.voteScore + 1
-            break
-        case "downVote":
-            post.voteScore = post.voteScore - 1
-            break
-        default:
-            console.log(`posts.vote received incorrect parameter: ${option}`)
-    }
-    res(post)
-  })
-}
-
-function disable (token, id) {
-    return new Promise((res) => {
-      let posts = getData(token)
-      posts[id].deleted = true
-      res(posts[id])
-    })
-}
-
-function edit (token, id, post) {
-    return new Promise((res) => {
-        let posts = getData(token)
-        for (prop in post) {
-            posts[id][prop] = post[prop]
-        }
-        res(posts[id])
-    })
+function edit (id, update) {
+    return Post.find({id}).exec()
+      .then(posts => posts[0])
+      .then(post => {
+        if(update.body && update.body !== post.body)
+          post.body = update.body;
+        if(update.title && update.title !== post.title)
+          post.title = update.title;
+        if(update.author && update.author !== post.author)
+          post.author = update.author;
+        if(update.category && update.category.id !== post.category.id)
+          post.category.id = update.category.id;
+        return Post.save();
+      });
 }
 
 module.exports = {
@@ -125,5 +77,5 @@ module.exports = {
   vote,
   disable,
   edit,
-  getAll
+  defaultData
 }
