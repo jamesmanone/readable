@@ -7,6 +7,10 @@ export default {
       date: true
     }
   },
+  activePost: {
+    post: {},
+    fetching: false
+  },
   postForm: {
     title: '',
     body: '',
@@ -16,5 +20,6 @@ export default {
   categories: {
     categories:[],
     fetching: false
-  }
+  },
+  alerts: []
 };

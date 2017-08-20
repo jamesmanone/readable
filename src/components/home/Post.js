@@ -8,14 +8,15 @@ const Post = props => {
   const { post } = props;
   const timestamp = makeDisplayDate(post.createdAt);
   return (
-    <ListGroupItem header={post.title} onClick={function() {history.push(`/post/${post.id}`);}}>
-        {post.author} on {timestamp}
+    <ListGroupItem header={post.title} onClick={function() {props.history.push(`/post/${post.id}`);}}>
+      {post.author} on {timestamp} <span className="pull-right">{post.voteScore > 0 ? "+" : ""}{post.voteScore}</span>
     </ListGroupItem>
   );
 };
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default Post;

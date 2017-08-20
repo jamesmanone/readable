@@ -23,19 +23,19 @@ const defaultData = [
 
 const getByCategory = category => {
   return Post.findByCategory(category)
-}
+};
 
 const get = id => {
   return Post.find({id}).populate('comments').exec();
-}
+};
 
 const getAll = () => {
   return Post.find().exec();
-}
+};
 
 const add = post => {
-  return Post.create(post)
-}
+  return Post.create(post, true)
+};
 
 const vote = (id, option) => {
   return Post.findById(id)
@@ -44,16 +44,16 @@ const vote = (id, option) => {
       else Post.downVote(true);
       return post;
     });
-}
+};
 
 const disable = id => {
   return Post.findById(id)
     .then(post => post.remove())
     .then(() => true)
     .catch(() => false);
-}
+};
 
-function edit (id, update) {
+const edit = (id, update) => {
     return Post.find({id}).exec()
       .then(posts => posts[0])
       .then(post => {
@@ -67,7 +67,7 @@ function edit (id, update) {
           post.category.id = update.category.id;
         return Post.save();
       });
-}
+};
 
 module.exports = {
   get,
@@ -78,4 +78,4 @@ module.exports = {
   disable,
   edit,
   defaultData
-}
+};

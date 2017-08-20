@@ -22,6 +22,7 @@ class PostSchema extends Schema {
     return new Promise((resolve, reject) => {
       Comment.create(comment, true)
         .then(newComment => this.comments.push(new ObjectId('Comment', newComment.id)))
+        .then(() => this.save())
         .then(resolve, reject);
     });
   }

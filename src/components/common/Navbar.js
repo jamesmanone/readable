@@ -1,28 +1,45 @@
 import React, { Component } from 'react';
-import { NavLink as Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Nav, Navbar, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 
-class Navbar extends Component {
+class NavBar extends Component {
+
+  static propTypes = {
+    categories: PropTypes.array,
+    history: PropTypes.object.isRequired
+  };
+
+  navigate = to => {
+    this.props.history.push(to);
+  };
+
   render() {
     return (
-      <nav className="navbar navbar-default">
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-          </button>
-          <Link to="/" className="navbar-brand">Readable</Link>
-        </div>
-        <div className="collapse navbar-collapse">
-          <ul className="nav navbar-nav">
-            <li><Link to="/categories" activeClassName="active">Categories</Link></li>
-            <li><Link to="/new" activeClassName="active">New Post</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar collapseOnSelect>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">Readable</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem onSelect={() => this.navigate('/new')}>New Post</NavItem>
+          </Nav>
+          <Nav pullRight>
+            <NavDropdown title="Categories" id="categories">
+              <MenuItem onSelect={() => this.navigate('/categories')}>All Categories</MenuItem>
+              <MenuItem divider />
+              {this.props.categories && this.props.categories.slice(0, 20).map(category => (
+                <MenuItem key={category.name} onSelect={() => this.navigate(`categories/${category.id}`)}>{category.name}</MenuItem>
+              ))}
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }
 
-export default Navbar;
+export default NavBar;

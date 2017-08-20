@@ -15,10 +15,11 @@ class Home extends Component {
   render() {
     return (
       <Posts
-        posts={ this.props.posts }
-        orderByVotes={ this.props.orderByVotes }
-        orderByDate={ this.props.orderByDate }
-        orderBy={ this.props.orderBy } />
+        posts={this.props.posts}
+        orderByVotes={this.props.orderByVotes}
+        orderByDate={this.props.orderByDate}
+        orderBy={this.props.orderBy}
+        history={this.props.history} />
     );
   }
 }
@@ -28,7 +29,8 @@ Home.propTypes = {
   fetching: PropTypes.bool.isRequired,
   orderBy: PropTypes.object.isRequired,
   orderByDate: PropTypes.func.isRequired,
-  orderByVotes: PropTypes.func.isRequired
+  orderByVotes: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({posts}) => {

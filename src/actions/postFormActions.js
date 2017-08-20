@@ -29,9 +29,8 @@ export const setPost = post => {
 export const submitPost = post => {
   return dispatch => {
     dispatch({type: types.SUBMIT_POST_PENDING});
-    const id = btoa((Math.random()*1000*1000).toString());
     const timestamp = Date.now();
-    post = {...post, id, timestamp};
+    post = {...post, timestamp};
     return api.submitPost(post)
       .then(res => dispatch({
         type: types.SUBMIT_POST_FULFILLED,

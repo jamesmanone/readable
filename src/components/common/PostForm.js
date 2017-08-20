@@ -10,6 +10,7 @@ const PostForm = props => {
             <label className="sr-only" htmlFor="title">Title</label>
             <input className="form-control"
                    type="text"
+                   value={props.title}
                    name="title"
                    id="title"
                    placeholder="Title"
@@ -20,7 +21,7 @@ const PostForm = props => {
           <div className="form-group">
             <label className="sr-only" htmlFor="author">Author</label>
             <input className="form-control"
-                   defaultValue={props.author}
+                   value={props.author}
                    type="text"
                    name="author"
                    id="author"
@@ -29,13 +30,13 @@ const PostForm = props => {
           </div>
         </div>
         <div className="col-md-4">
-          <select defaultValue={props.category}
+          <select value={props.category}
                   className="form-control"
                   onChange={props.onCategoryChange}>
-            <option value="" disabled>Category</option>
+            <option disabled>Category</option>
             { props.categories.length &&
               props.categories.map(category =>
-              <option key={category} value={category}>{category}</option>) }
+              <option key={category.id} value={category.name}>{category.name}</option>) }
           </select>
         </div>
       </div>

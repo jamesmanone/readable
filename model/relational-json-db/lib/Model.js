@@ -39,14 +39,10 @@ class Model {
     return doc;
   }
   find(query) {
-    if(query && Object.keys(query).length === 1 && query.hasOwnProperty('id')) {
-      let results = [this.hash[query.id]];
-      results[0] = new this.schema(result);
-      results[0].injectModel(this);
-      return new Query(results, this.DB)
-    }
     let results = [...this.db];
-    if(query) {
+    if(query && query.hasOwnProperty('id')) {
+      results = [this.hash[query.id]];
+    } else if(query) {
       for(let param in query) {
         results = results.filter(result => result[param] === query[param]);
       }

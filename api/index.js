@@ -68,7 +68,7 @@ router.get('/posts', (req, res) => {
 });
 
 router.post('/posts', bodyParser.json(), (req, res) => {
-  posts.add(req.token, req.body)
+  posts.add(req.body)
     .then(
       (data) => res.send(data),
       (error) => {
@@ -80,9 +80,12 @@ router.post('/posts', bodyParser.json(), (req, res) => {
 });
 
 router.get('/posts/:id', (req, res) => {
+  console.log(req.params.id);
   posts.get(req.params.id)
     .then(
-      (data) => res.send(data),
+      (data) => {
+        res.send(data[0]);
+      },
       (error) => {
         res.status(500).send({
           error: 'There was an error.'

@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-// Make random token using string to Base64
+// Make random token using binary to Base64
 // btoa is the least descriptive name they could have used
 const makeToken = () => {
   let token = btoa((Math.random()*1000*1000).toString());
@@ -19,8 +19,8 @@ const config = {
 
 export const getCategories = () => {
   return axios.get('/api/categories', config)
-    .then(res => res.data.categories)
-    .then(data => data.map(cat => cat.name));
+    .then(res => res.data);
+    // .then(data => data.map(cat => cat.name));
 };
 
 export const newCategory = category => {

@@ -10,10 +10,25 @@ import {
   changeCategory,
   submitPost
 } from '../../actions/postFormActions';
+import { pushAlert } from '../../actions/alertActions';
 import PostForm from '../common/PostForm';
 import store from '../../store';
 
 class NewPage extends Component {
+  static propTypes = {
+    changeBody: PropTypes.func.isRequired,
+    changeTitle: PropTypes.func.isRequired,
+    changeCategory: PropTypes.func.isRequired,
+    changeAuthor: PropTypes.func.isRequired,
+    submitPost: PropTypes.func.isRequired,
+    pushAlert: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    body: PropTypes.string,
+    author: PropTypes.string,
+    category: PropTypes.string,
+    categories: PropTypes.array.isRequired,
+    history: PropTypes.object.isRequired
+  }
 
   onTitleChange = evt => this.props.changeTitle(evt.target.value);
 
@@ -23,10 +38,17 @@ class NewPage extends Component {
 
   onAuthorChange = evt => this.props.changeAuthor(evt.target.value);
 
-  onSubmitForm = async e => {
-    e.preventDefault();
-    await this.props.submitPost(store.getState().postForm);
-    this.props.history.push('/');
+  onSubmitForm = async evt => {
+    evt.preventDefault();
+    const { title, body, author, category } = store.getState().postForm;
+    // Checking this.props always shows the default values. I do not know why.
+    if(!(title && body && author && category)) {
+      this.props.pushAlert('danger', 'All fields are required!');
+    } else {
+      await this.props.submitPost({title, body, author, category});
+      this.props.pushAlert('success', 'Your message was posted!');
+      this.props.history.push('/');
+    }
   }
 
   render() {
@@ -51,20 +73,6 @@ class NewPage extends Component {
   }
 }
 
-NewPage.propTypes = {
-  changeBody: PropTypes.func.isRequired,
-  changeTitle: PropTypes.func.isRequired,
-  changeCategory: PropTypes.func.isRequired,
-  changeAuthor: PropTypes.func.isRequired,
-  submitPost: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  body: PropTypes.string,
-  author: PropTypes.string,
-  category: PropTypes.string,
-  categories: PropTypes.array.isRequired,
-  history: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => {
   const { title, body, author, category } = state.postForm;
   const { categories } = state.categories;
@@ -83,7 +91,8 @@ const mapDispatchToProps = dispatch =>
     changeTitle,
     changeAuthor,
     changeCategory,
-    submitPost
+    submitPost,
+    pushAlert
   }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewPage));

@@ -17,19 +17,16 @@ Category.find().exec()
 Post.find().exec()
   .catch(() => {
     const { defaultData } = require('../api/posts');
-    defaultData.map(item => {
+    Promise.all(defaultData.map(item => {
       Post.create(item, true);
+    }))
+    .then(() => {
+      const { defaultData } = require('../api/comments');
+      defaultData.map(item =>
+        Post.findById(item.post).then(post => post.addComment(item))
+      );
     });
   });
-
-Comment.find().exec()
-  .catch(() => {
-    const { defaultData } = require('../api/comments');
-    defaultData.map(item =>
-      Post.findById(item.post).then(post => post.addComment(item))
-    );
-  });
-
 
 
 module.exports = {Comment, Post, Category};

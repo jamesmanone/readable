@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import Navbar from './common/Navbar';
+import Alerts from './common/Alerts';
 import RouterOutput from './Routes';
 import { getAllPosts } from '../actions/postActions';
 import { getAllCategories } from '../actions/categoryActions';
@@ -17,7 +18,8 @@ class App extends Component {
   render() {
     return (
         <div>
-          <Navbar />
+          <Navbar history={this.props.history} categories={this.props.categories}/>
+          <Alerts />
           <RouterOutput />
         </div>
     );
@@ -28,7 +30,8 @@ App.propTypes = {
   posts: PropTypes.array,
   categories: PropTypes.array,
   getAllPosts: PropTypes.func.isRequired,
-  getAllCategories: PropTypes.func.isRequired
+  getAllCategories: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
