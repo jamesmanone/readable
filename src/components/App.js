@@ -11,8 +11,8 @@ import { getAllCategories } from '../actions/categoryActions';
 
 class App extends Component {
   componentDidMount() {
-    this.props.posts.length || this.props.getAllPosts();
-    this.props.categories.length || this.props.getAllCategories();
+    this.props.getAllPosts();
+    this.props.getAllCategories();
   }
 
   render() {

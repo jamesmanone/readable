@@ -13,7 +13,14 @@ const Posts = props => {
       </ButtonGroup>
       <Clearfix />
       <ListGroup componentClass="div">
-        { props.posts.map(post => <Post post={post} key={post.id} history={props.history} />) }
+        { props.posts.map(post => (
+          <Post post={post}
+                key={post.id}
+                onUpVote={props.onUpVote}
+                onDownVote={props.onDownVote}
+                onDeletePost={props.onDeletePost}
+                history={props.history} />)
+        ) }
       </ListGroup>
     </div>
   );
@@ -24,7 +31,10 @@ Posts.propTypes = {
   orderByDate: PropTypes.func.isRequired,
   orderByVotes: PropTypes.func.isRequired,
   orderBy: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  onUpVote: PropTypes.func.isRequired,
+  onDownVote: PropTypes.func.isRequired,
+  onDeletePost: PropTypes.func.isRequired
 };
 
 export default Posts;

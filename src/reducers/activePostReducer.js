@@ -9,6 +9,24 @@ export default (state=initialState.activePost, action) => {
       return {...state, post: action.payload, fetching: false};
     case types.FETCH_POST_REJECTED:
       return {...state, fetching: false};
+    case types.POST_DOWNVOTE:
+      if(state.post.id === action.payload.id) {
+        return {...state, post: action.payload};
+      } else {
+        return state;
+      }
+    case types.POST_UPVOTE:
+      if(state.post.id === action.payload.id) {
+        return {
+          ...state,
+          post: {
+            ...state.post,
+            voteScore: action.payload.voteScore
+          }
+        };
+      } else {
+        return state;
+      }
     default:
       return state;
   }

@@ -4,11 +4,13 @@ import postForm from './postFormReducer';
 import categories from './categoriesReducer';
 import activePost from './activePostReducer';
 import alerts from './alertsReducer';
+import comment from './commentReducer';
 
 export default combineReducers({
   posts,
   postForm,
   categories,
   activePost,
-  alerts
+  alerts,
+  comment
 });

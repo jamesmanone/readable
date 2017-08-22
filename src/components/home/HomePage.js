@@ -4,18 +4,39 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import Posts from './Posts';
-import { orderByDate, orderByVotes } from '../../actions/postActions';
+import {
+  orderByDate,
+  orderByVotes,
+  upVote,
+  downVote,
+  deletePost
+} from '../../actions/postActions';
 
 class Home extends Component {
+  static propTypes = {
+    posts: PropTypes.array.isRequired,
+    fetching: PropTypes.bool.isRequired,
+    orderBy: PropTypes.object.isRequired,
+    orderByDate: PropTypes.func.isRequired,
+    orderByVotes: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    upVote: PropTypes.func.isRequired,
+    downVote: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
-    this.props.orderBy.votes && this.props.orderByVotes();
-    this.props.orderBy.date  && this.props.orderByDate();
+    if(this.props.orderBy.votes) this.props.orderByVotes();
+    else if(this.props.orderBy.date) this.props.orderByDate();
   }
 
   render() {
     return (
       <Posts
         posts={this.props.posts}
+        onUpVote={this.props.upVote}
+        onDownVote={this.props.downVote}
+        onDeletePost={this.props.deletePost}
         orderByVotes={this.props.orderByVotes}
         orderByDate={this.props.orderByDate}
         orderBy={this.props.orderBy}
@@ -23,15 +44,6 @@ class Home extends Component {
     );
   }
 }
-
-Home.propTypes = {
-  posts: PropTypes.array.isRequired,
-  fetching: PropTypes.bool.isRequired,
-  orderBy: PropTypes.object.isRequired,
-  orderByDate: PropTypes.func.isRequired,
-  orderByVotes: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
-};
 
 const mapStateToProps = ({posts}) => {
   return {
@@ -44,7 +56,10 @@ const mapStateToProps = ({posts}) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     orderByVotes,
-    orderByDate
+    orderByDate,
+    upVote,
+    downVote,
+    deletePost
   }, dispatch);
 
 

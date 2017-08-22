@@ -55,14 +55,14 @@ export const deletePost = postId => {
 
 export const upVote = postId => {
   return axios.post(`/api/posts/${postId}`,
-                    {option:upVote},
+                    {option:'upVote'},
                     config)
     .then(res => res.data);
 };
 
 export const downVote = postId => {
   return axios.post(`/api/posts/${postId}`,
-                    {option:downVote},
+                    {option:'downVote'},
                     config)
     .then(res => res.data);
 };

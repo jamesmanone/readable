@@ -80,7 +80,6 @@ router.post('/posts', bodyParser.json(), (req, res) => {
 });
 
 router.get('/posts/:id', (req, res) => {
-  console.log(req.params.id);
   posts.get(req.params.id)
     .then(
       (data) => {
@@ -95,8 +94,7 @@ router.get('/posts/:id', (req, res) => {
 });
 
 router.delete('/posts/:id', (req, res) => {
-  comments.disableByParent(id);
-  posts.disable(id)
+  posts.disable(req.params.id)
     .then(success => res.json({success}));
 });
 

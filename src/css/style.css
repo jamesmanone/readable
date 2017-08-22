@@ -1,0 +1,63 @@
+.alerts {
+  position: sticky;
+  top: 20px;
+}
+
+.slash {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.vote-score {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.negative {
+  color: darkred;
+}
+
+.positive {
+  color: darkgreen;
+}
+
+.fa {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.fa-arrow-up {
+  color: darkgreen;
+  margin-right: 10px;
+}
+
+.fa-arrow-up:hover {
+  color: lightgreen;
+}
+
+.fa-arrow-down {
+  color: darkred;
+}
+
+.fa-arrow-down:hover {
+  color: red;
+}
+
+.fa-comments {
+  margin-right: 5px;
+  color: #333;
+}
+
+.fa-trash {
+  margin-right: 10px;
+  color: darkred;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+.grey {
+  color: #333;
+  font-weight: bold;
+}

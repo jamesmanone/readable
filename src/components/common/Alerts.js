@@ -14,7 +14,7 @@ class Alerts extends Component {
   render() {
     const { alerts, popAlert } = this.props;
     return (
-      <div className="container">
+      <div className="container alerts">
         {alerts.map(alert => (
           <Alert key={alert.id}
                  onDismiss={() => popAlert(alert.id)}

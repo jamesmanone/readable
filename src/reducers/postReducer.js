@@ -1,4 +1,5 @@
 import * as types from '../actions/actionTypes';
+import initialState from '../store/initialState';
 
 const byDate = (a, b) => {
   return b.createdAt - a.createdAt;
@@ -8,7 +9,7 @@ const byVotes = (a, b) => {
   return b.voteScore - a.voteScore;
 };
 
-export default (state={}, action) => {
+export default (state=initialState.posts, action) => {
   switch (action.type) {
     case types.FETCH_POSTS_PENDING:
       return {...state, fetching: true};
@@ -33,6 +34,27 @@ export default (state={}, action) => {
           votes: true,
           date: false
         }
+      };
+    case types.POST_UPVOTE:
+      return {
+        ...state,
+        posts: [
+          ...state.posts.filter(post => post.id !== action.payload.id),
+          action.payload
+        ]
+      };
+    case types.POST_DOWNVOTE:
+      return {
+        ...state,
+        posts: [
+          ...state.posts.filter(post => post.id !== action.payload.id),
+          action.payload
+        ]
+      };
+    case types.DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.id !== action.payload)
       };
     default:
       return state;

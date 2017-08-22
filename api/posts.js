@@ -40,8 +40,8 @@ const add = post => {
 const vote = (id, option) => {
   return Post.findById(id)
     .then(post => {
-      if(option === 'upVote') Post.upVote(true);
-      else Post.downVote(true);
+      if(option === 'upVote') post.upVote(true);
+      else post.downVote(true);
       return post;
     });
 };

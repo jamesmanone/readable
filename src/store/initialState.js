@@ -3,8 +3,8 @@ export default {
     posts: [],
     fetching: false,
     orderBy: {
-      votes: false,
-      date: true
+      votes: true,
+      date: false
     }
   },
   activePost: {
@@ -21,5 +21,9 @@ export default {
     categories:[],
     fetching: false
   },
-  alerts: []
+  alerts: [],
+  comment: {
+    comment: '',
+    author: ''
+  }
 };
