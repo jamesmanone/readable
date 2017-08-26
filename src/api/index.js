@@ -95,3 +95,13 @@ export const deleteComment = commentId => {
   return axios.delete(`/api/comments/${commentId}`, config)
     .then(res => res.data);
 };
+
+export const upVoteComment = commentId => {
+  return axios.post(`/api/comments/${commentId}`, {option:'upVote'}, config)
+    .then(res => res.data);
+};
+
+export const downVoteComment = commentId => {
+  return axios.post(`/api/comments/${commentId}`, {option:'downVote'}, config)
+    .then(res => res.data);
+};

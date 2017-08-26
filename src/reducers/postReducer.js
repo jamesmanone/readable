@@ -56,6 +56,20 @@ export default (state=initialState.posts, action) => {
         ...state,
         posts: state.posts.filter(post => post.id !== action.payload)
       };
+    case types.UPVOTE_COMMENT_FULLFILLED:
+      return {
+        ...state,
+        posts: state.posts
+          .filter(post => post.id !== action.payload.id)
+          .concat([action.payload])
+      };
+    case types.DOWNVOTE_COMMENT_FULLFILLED:
+      return {
+        ...state,
+        posts: state.posts
+          .filter(post => post.id !== action.payload.id)
+          .concat([action.payload])
+      };
     default:
       return state;
   }

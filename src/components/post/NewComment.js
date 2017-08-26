@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, Col, Button } from 'react-bootstrap';
+import { FormControl, Button } from 'react-bootstrap';
 
 const NewComment = props => {
 
   return (
-    <Col md={4}>
+    <div>
       <h4>New Comment</h4>
       <form onSubmit={props.onCommentSubmit}>
         <FormControl type="text"
@@ -24,7 +24,7 @@ const NewComment = props => {
           Submit
         </Button>
       </form>
-    </Col>
+    </div>
   );
 };
 

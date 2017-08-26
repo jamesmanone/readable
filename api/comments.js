@@ -27,16 +27,20 @@ const get = id => {
 
 const add = comment => {
   return Post.findById(comment.post)
-    .then(post => post.addComment(comment));
+    .then(post => post.addComment(comment))
+    .then(post => post.populate('comments'));
 }
 
 const vote = (id, option) => {
   return Comment.findById(id)
     .then(comment => {
+      console.log(comment);
       if(option === 'upVote') comment.upVote(true);
       else comment.downVote(true);
       return comment;
     })
+    .then(comment => Post.findById(comment.post.id))
+    .then(post => post.populate('comments'));
 }
 
 const disableByParent = (token, post) => {

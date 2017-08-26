@@ -7,10 +7,12 @@ import { getPost } from '../../actions/postPageActions';
 import {
   changeComment,
   submitComment,
-  changeAuthor
+  changeAuthor,
+  upVoteComment,
+  downVoteComment
 } from '../../actions/commentActions';
 import { pushAlert } from '../../actions/alertActions';
-import { upVote, downVote } from '../../actions/postActions';
+import { upVote, downVote, deletePost } from '../../actions/postActions';
 import Post from './Post';
 import store from '../../store';
 
@@ -25,7 +27,11 @@ class PostPage extends Component {
     submitComment: PropTypes.func.isRequired,
     pushAlert: PropTypes.func.isRequired,
     upVote: PropTypes.func.isRequired,
-    downVote: PropTypes.func.isRequired
+    downVote: PropTypes.func.isRequired,
+    upVoteComment: PropTypes.func.isRequired,
+    downVoteComment: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -48,26 +54,24 @@ class PostPage extends Component {
     }
   };
 
-  onUpVote = () => {
-    const postId = store.getState().activePost.post.id;
-    this.props.upVote(postId);
-  };
-
-  onDownVote = () => {
-    const postId = store.getState().activePost.post.id;
-    this.props.downVote(postId);
-  };
+  onDeletePost = postId => {
+    this.props.deletePost(postId);
+    this.props.history.push('/');
+  }
 
   render() {
-    return (
+    return (this.props.post.post && (
       <Post post={this.props.post.post}
-            onUpVote={this.onUpVote}
-            onDownVote={this.onDownVote}
+            onDeletePost={this.onDeletePost}
+            onUpVote={this.props.upVote}
+            onDownVote={this.props.downVote}
             comment={this.props.comment}
             onCommentChange={this.onCommentChange}
             onAuthorChange={this.onAuthorChange}
-            onCommentSubmit={this.onCommentSubmit}/>
-    );
+            onCommentSubmit={this.onCommentSubmit}
+            onCommentUpVote={this.props.upVoteComment}
+            onCommentDownVote={this.props.downVoteComment}/>
+    )) || null;
   }
 
 }
@@ -81,12 +85,15 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getPost,
+  deletePost,
   changeComment,
   submitComment,
   changeAuthor,
   pushAlert,
   upVote,
-  downVote
+  downVote,
+  upVoteComment,
+  downVoteComment
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostPage));

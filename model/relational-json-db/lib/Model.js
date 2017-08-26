@@ -27,7 +27,8 @@ class Model {
   findById(id) {
     return new Promise((resolve, reject) => {
       if(!this.hash.hasOwnProperty(id)) reject();
-      const doc = new this.schema(this.hash[id]);
+      const temp = Object.assign({}, this.hash[id]);
+      const doc = new this.schema(temp);
       doc.injectModel(this);
       resolve(doc);
     });

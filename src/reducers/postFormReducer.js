@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
+import initialState from '../store/initialState';
 
 // This is only part of the store due to project requirements
-export default (state={}, action) => {
+export default (state=initialState.postForm, action) => {
   switch (action.type) {
     case types.CHANGE_TITLE:
       return {...state, title: action.payload};

@@ -163,7 +163,7 @@ router.put('/comments/:id', bodyParser.json(), (req, res) => {
 router.post('/comments', bodyParser.json(), (req, res) => {
   comments.add(req.body)
     .then(
-      (data) => res.send(data),
+      (data) => {console.log(data);res.send(data);},
       (error) => {
         res.status(500).send({
           error: 'There was an error.'
@@ -174,6 +174,7 @@ router.post('/comments', bodyParser.json(), (req, res) => {
 
 router.post('/comments/:id', bodyParser.json(), (req, res) => {
   const { option } = req.body;
+  const { id } = req.params;
   comments.vote(req.params.id, option)
     .then(
       (data) => res.send(data),

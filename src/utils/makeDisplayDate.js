@@ -57,6 +57,6 @@ export default timestamp => {
   const month = getMonth(ts.getMonth());
   const year = ts.getFullYear();
   const hours = ts.getHours() > 9 ? ts.getHours() : `0${ts.getHours()}`;
-  const minutes = ts.getMinutes() ? ts.getMinutes() : `0${ts.getMinutes()}`;
+  const minutes = ts.getMinutes() > 9 ? ts.getMinutes() : `0${ts.getMinutes()}`;
   return `${day} ${date}${month}${year} at ${hours}:${minutes}`;
 };

@@ -21,7 +21,10 @@ class Query {
     return this;
   }
   populate(field) {
-    const test = this._results.filter(item => item[field] && !(Array.isArray(item[field]) && !item[field].length))[0];
+    const test = this._results.filter(item =>
+      item[field] &&
+      !(Array.isArray(item[field]) &&
+      !item[field].length))[0];
     if(!test) return this;
     const isArray = Array.isArray(test[field]);
     const model = isArray ?

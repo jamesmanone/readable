@@ -14,6 +14,20 @@ class Schema {
     this.model = model;
   }
 
+  populate(key) {
+    const field = this[key];
+    const isArray = Array.isArray(field);
+    if(!field || (isArray && !field.length)) return this;
+    const targetModel = isArray ? field[0].model : field.model;
+    const model = this.model.DB.getOne(targetModel);
+    if(isArray) {
+      this[key] = this[key].map(doc => model.findByIdSync(doc.id))
+    } else {
+      this[key] = model.findByIdSync(field.id)
+    }
+    return this;
+  }
+
   save() {
     return this.model.save(this);
   }

@@ -48,9 +48,14 @@ const vote = (id, option) => {
 
 const disable = id => {
   return Post.findById(id)
-    .then(post => post.remove())
-    .then(() => true)
-    .catch(() => false);
+    .then(post => {
+      post.populate('comments');
+      post.comments.map(comment => {
+        comment.remove()
+      });
+      post.remove();
+      return true;
+    });
 };
 
 const edit = (id, update) => {

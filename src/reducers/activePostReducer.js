@@ -11,7 +11,13 @@ export default (state=initialState.activePost, action) => {
       return {...state, fetching: false};
     case types.POST_DOWNVOTE:
       if(state.post.id === action.payload.id) {
-        return {...state, post: action.payload};
+        return {
+          ...state,
+          post: {
+            ...state.post,
+            voteScore: action.payload.voteScore
+          }
+        };
       } else {
         return state;
       }
@@ -23,6 +29,33 @@ export default (state=initialState.activePost, action) => {
             ...state.post,
             voteScore: action.payload.voteScore
           }
+        };
+      } else {
+        return state;
+      }
+    case types.SUBMIT_COMMENT_FULFILLED:
+      if(state.post.id === action.payload.id) {
+        return {
+          ...state,
+          post: action.payload
+        };
+      } else {
+        return state;
+      }
+    case types.UPVOTE_COMMENT_FULLFILLED:
+      if(state.post.id === action.payload.id) {
+        return {
+          ...state,
+          post: action.payload
+        };
+      } else {
+        return state;
+      }
+    case types.DOWNVOTE_COMMENT_FULLFILLED:
+      if(state.post.id === action.payload.id) {
+        return {
+          ...state,
+          post: action.payload
         };
       } else {
         return state;

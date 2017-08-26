@@ -25,9 +25,21 @@ app.use(express.static('dist'));
 
 app.use('/api', require('./api'));
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/dist/index.html'));
-});
+if(process.env.NODE_ENV !== 'production') {
+  app.get('*', (req, res) => {
+    const filename = path.join(compiler.outputPath,'index.html');
+    compiler.outputFileSystem.readFile(filename, (e, file) => {
+      res.set('Content-Type', 'text/html')
+      res.send(file);
+    });
+  });
+}
+
+if(process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile('dist/index.html')
+  })
+}
 
 
 app.listen(config.port, () => {
