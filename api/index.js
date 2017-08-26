@@ -163,7 +163,7 @@ router.put('/comments/:id', bodyParser.json(), (req, res) => {
 router.post('/comments', bodyParser.json(), (req, res) => {
   comments.add(req.body)
     .then(
-      (data) => {console.log(data);res.send(data);},
+      (data) => res.send(data),
       (error) => {
         res.status(500).send({
           error: 'There was an error.'

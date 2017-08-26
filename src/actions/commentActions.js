@@ -57,3 +57,17 @@ export const downVoteComment = comment => {
       });
   };
 };
+
+export const deleteComment = comment => {
+  return dispatch => {
+    api.deleteComment(comment.id)
+      .then(res => {
+        dispatch({
+          type: types.DELETE_COMMENT_FULFILLED,
+          payload: comment.id
+        });
+        resetOrder(dispatch);
+        pushAlert('success', 'Comment deleted. Hope it was yours!')(dispatch);
+      });
+  };
+};

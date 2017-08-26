@@ -60,6 +60,14 @@ export default (state=initialState.activePost, action) => {
       } else {
         return state;
       }
+    case types.DELETE_COMMENT_FULFILLED:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(comment => comment.id !== action.payload)
+        }
+      };
     default:
       return state;
   }

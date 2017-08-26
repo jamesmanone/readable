@@ -26,7 +26,7 @@ const Post = props => {
         <FontAwesome name="arrow-down" onClick={() => props.onDownVote(id)} />
         <span className="slash">/</span>
         <FontAwesome name="arrow-up" onClick={() => props.onUpVote(id)} />
-        <span className={voteScore<0?'vote-score negative':'vote-score positive'}>
+        <span className={voteScore < 0 ? 'vote-score negative' : 'vote-score positive'}>
           &nbsp;&nbsp;{voteScore < 0 ? voteScore : `+${voteScore}`}
         </span>
       </div>
@@ -38,7 +38,8 @@ const Post = props => {
       <Col md={5}>
         <Comments comments={comments}
                   onCommentUpVote={props.onCommentUpVote}
-                  onCommentDownVote={props.onCommentDownVote} />
+                  onCommentDownVote={props.onCommentDownVote}
+                  onDeleteComment={props.onDeleteComment} />
         <hr />
         <NewComment comment={props.comment}
                     onCommentChange={props.onCommentChange}
@@ -61,7 +62,8 @@ Post.propTypes = {
   onDownVote: PropTypes.func.isRequired,
   onDeletePost: PropTypes.func.isRequired,
   onCommentUpVote: PropTypes.func.isRequired,
-  onCommentDownVote: PropTypes.func.isRequired
+  onCommentDownVote: PropTypes.func.isRequired,
+  onDeleteComment: PropTypes.func.isRequired
 };
 
 export default Post;

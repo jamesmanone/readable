@@ -34,7 +34,6 @@ const add = comment => {
 const vote = (id, option) => {
   return Comment.findById(id)
     .then(comment => {
-      console.log(comment);
       if(option === 'upVote') comment.upVote(true);
       else comment.downVote(true);
       return comment;
@@ -49,7 +48,8 @@ const disableByParent = (token, post) => {
 
 const disable = id => {
   return Comment.findById(id)
-    .then(comment => comment.remove());
+    .then(comment => Post.findById(comment.post.id))
+    .then(post => post.removeComment(id));
 }
 
 const edit = (id, update) => {

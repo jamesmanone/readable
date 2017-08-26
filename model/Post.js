@@ -10,11 +10,12 @@ class PostSchema extends Schema {
       this.category = new ObjectId('Category', data.category.id);
     else if(data.category && typeof data.category == 'string')
       this.category = new ObjectId('Category', data.category);
-    this.voteScore = data.voteScore || 0;
+      this.voteScore = data.voteScore === undefined ? 1 : data.voteScore;
     this.comments = data.comments || [];
     this.addComment = this.addComment.bind(this);
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
+    this.removeComment = this.removeComment.bind(this);
   }
   addComment(comment) {
     comment.post = this;
@@ -24,6 +25,17 @@ class PostSchema extends Schema {
         .then(newComment => this.comments.push(new ObjectId('Comment', newComment.id)))
         .then(() => this.save())
         .then(resolve, reject);
+    });
+  }
+  removeComment(id) {
+    return new Promise((resolve, reject) => {
+      const Comment = this.model.DB.getOne('Comment');
+      const comment = Comment.findByIdSync(id);
+      if(comment.post.id !== this.id) throw validationError;
+      this.comments = this.comments.filter(comment => comment.id !== id);
+      comment.remove();
+      this.save();
+      resolve(this);
     });
   }
   upVote(auto) {

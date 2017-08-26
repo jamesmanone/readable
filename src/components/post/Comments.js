@@ -8,11 +8,11 @@ import { makeDisplayDate } from '../../utils';
 const Comments = props => {
   return (
     <ListGroup>
-      {props.comments && props.comments.map(comment => (
+      {props.comments && props.comments.map(comment =>
         <ListGroupItem key={comment.id}>
           {comment.body}
           <span className="pull-right">
-            <FontAwesome name="trash" />
+            <FontAwesome name="trash" onClick={() => props.onDeleteComment(comment)} />
             <FontAwesome name="arrow-down" onClick={() => props.onCommentDownVote(comment)} />
             <span className="slash">/</span>
             <FontAwesome name="arrow-up" onClick={() => props.onCommentUpVote(comment)} />
@@ -23,7 +23,7 @@ const Comments = props => {
           <br />
           <small> by {comment.author} on {makeDisplayDate(comment.createdAt)}</small>
         </ListGroupItem>
-      ))}
+      )}
     </ListGroup>
   );
 };
@@ -31,7 +31,8 @@ const Comments = props => {
 Comments.propTypes = {
   comments: PropTypes.array,
   onCommentUpVote: PropTypes.func.isRequired,
-  onCommentDownVote: PropTypes.func.isRequired
+  onCommentDownVote: PropTypes.func.isRequired,
+  onDeleteComment: PropTypes.func.isRequired
 };
 
 export default Comments;
