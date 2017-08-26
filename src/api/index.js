@@ -20,7 +20,6 @@ const config = {
 export const getCategories = () => {
   return axios.get('/api/categories', config)
     .then(res => res.data);
-    // .then(data => data.map(cat => cat.name));
 };
 
 export const newCategory = category => {

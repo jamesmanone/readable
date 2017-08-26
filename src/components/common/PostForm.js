@@ -44,7 +44,8 @@ const PostForm = props => {
       <textarea className="form-control"
                 name="body"
                 onChange={props.onBodyChange}
-                rows="4" />
+                rows="4"
+                value={props.body} />
       <br />
       <button className="btn btn-success pull-right" type="submit">Post</button>
     </form>

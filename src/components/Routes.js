@@ -5,6 +5,7 @@ import Home from './home/HomePage';
 import Categories from './categories/CategoriesPage';
 import New from './new/NewPage';
 import Post from './post/PostPage';
+import Edit from './edit/EditPage';
 
 
 class Routes extends Component {
@@ -14,7 +15,8 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/categories" component={Categories} />
         <Route path="/new" component={New} />
-        <Route path="/post/:postId" component={Post} />
+        <Route exact path="/post/:postId" component={Post} />
+        <Route path="/post/:postId/edit" component={Edit} />
       </div>
     );
   }

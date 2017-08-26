@@ -60,7 +60,7 @@ const disable = id => {
 
 const edit = (id, update) => {
     return Post.find({id}).exec()
-      .then(posts => posts[0])
+      .then(posts => posts[0].populate('comments'))
       .then(post => {
         if(update.body && update.body !== post.body)
           post.body = update.body;

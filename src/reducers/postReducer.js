@@ -70,6 +70,13 @@ export default (state=initialState.posts, action) => {
           .filter(post => post.id !== action.payload.id)
           .concat([action.payload])
       };
+    case types.EDIT_SUBMIT_FULLFILLED:
+      return {
+        ...state,
+        posts: state.posts
+          .filter(post => post.id !== action.payload.id)
+          .concat([action.payload])
+      };
     default:
       return state;
   }

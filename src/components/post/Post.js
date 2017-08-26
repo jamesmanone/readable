@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import { makeDisplayDate } from '../../utils';
 import Comments from './Comments';
@@ -22,6 +23,7 @@ const Post = props => {
     <div>
       <h1>{title}</h1>
       <div className="pull-right">
+        <Link to={`/post/${id}/edit`}><FontAwesome name="pencil" /></Link>
         <FontAwesome name="trash" onClick={() => props.onDeletePost(id)} />
         <FontAwesome name="arrow-down" onClick={() => props.onDownVote(id)} />
         <span className="slash">/</span>

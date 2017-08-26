@@ -25,5 +25,14 @@ export default {
   comment: {
     comment: '',
     author: ''
+  },
+  editPost: {
+    post: {
+      title: '',
+      body: '',
+      author: '',
+      category: '',
+      id: ''
+    }
   }
 };
