@@ -7,7 +7,6 @@ import FontAwesome from 'react-fontawesome';
 
 const Post = props => {
   const { post } = props;
-  console.log(post);
   const { voteScore, id, title, createdAt, author, comments, category } = post;
   return (
     <ListGroupItem header={title} onClick={(evt) => props.navToPost(evt, post.id)}>

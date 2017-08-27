@@ -7,10 +7,7 @@ import { getPost } from '../../actions/postPageActions';
 import {
   changeComment,
   submitComment,
-  changeAuthor,
-  upVoteComment,
-  downVoteComment,
-  deleteComment
+  changeAuthor
 } from '../../actions/commentActions';
 import { pushAlert } from '../../actions/alertActions';
 import { upVote, downVote, deletePost } from '../../actions/postActions';
@@ -29,11 +26,8 @@ class PostPage extends Component {
     pushAlert: PropTypes.func.isRequired,
     upVote: PropTypes.func.isRequired,
     downVote: PropTypes.func.isRequired,
-    upVoteComment: PropTypes.func.isRequired,
-    downVoteComment: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired,
-    deleteComment: PropTypes.func.isRequired
+    history: PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -70,10 +64,7 @@ class PostPage extends Component {
             comment={this.props.comment}
             onCommentChange={this.onCommentChange}
             onAuthorChange={this.onAuthorChange}
-            onCommentSubmit={this.onCommentSubmit}
-            onCommentUpVote={this.props.upVoteComment}
-            onCommentDownVote={this.props.downVoteComment}
-            onDeleteComment={this.props.deleteComment} />
+            onCommentSubmit={this.onCommentSubmit} />
     )) || null;
   }
 
@@ -94,10 +85,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   changeAuthor,
   pushAlert,
   upVote,
-  downVote,
-  upVoteComment,
-  downVoteComment,
-  deleteComment
+  downVote
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostPage));

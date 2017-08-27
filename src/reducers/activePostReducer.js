@@ -68,6 +68,40 @@ export default (state=initialState.activePost, action) => {
           comments: state.post.comments.filter(comment => comment.id !== action.payload)
         }
       };
+    case types.EDIT_COMMENT_SET_COMMENT:
+      if(action.payload.post.id !== state.post.id) return state;
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments
+                      .filter(item => item.id !== action.payload.id)
+                      .concat([{...action.payload, editing: true}])
+                      .sort((a, b) => a.createdAt - b.createdAt)
+        }
+      };
+    case types.EDIT_COMMENT_CANCELED:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.map(comment => {
+            if(comment.hasOwnProperty('editing')) delete comment.editing;
+            return comment;
+          })
+        }
+      };
+    case types.EDIT_COMMENT_SUBMIT_FULFILLED:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments
+                      .filter(comment => comment.id !== action.payload.id)
+                      .concat([action.payload])
+                      .sort((a, b) => a.createdAt - b.createdAt)
+        }
+      };
     default:
       return state;
   }

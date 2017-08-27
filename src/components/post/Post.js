@@ -38,10 +38,7 @@ const Post = props => {
       </small></p>
       <hr />
       <Col md={5}>
-        <Comments comments={comments}
-                  onCommentUpVote={props.onCommentUpVote}
-                  onCommentDownVote={props.onCommentDownVote}
-                  onDeleteComment={props.onDeleteComment} />
+        <Comments />
         <hr />
         <NewComment comment={props.comment}
                     onCommentChange={props.onCommentChange}
@@ -62,10 +59,7 @@ Post.propTypes = {
   onAuthorChange: PropTypes.func.isRequired,
   onUpVote: PropTypes.func.isRequired,
   onDownVote: PropTypes.func.isRequired,
-  onDeletePost: PropTypes.func.isRequired,
-  onCommentUpVote: PropTypes.func.isRequired,
-  onCommentDownVote: PropTypes.func.isRequired,
-  onDeleteComment: PropTypes.func.isRequired
+  onDeletePost: PropTypes.func.isRequired
 };
 
 export default Post;

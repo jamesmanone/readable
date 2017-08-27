@@ -21,13 +21,10 @@ export const setPost = post => dispatch =>
 
 export const submitPost = post => dispatch => {
   dispatch({type: types.SUBMIT_POST_PENDING});
-  const timestamp = Date.now();
-  post = {...post, timestamp};
-  return api.submitPost(post)
+  api.submitPost(post)
     .then(res => dispatch({
       type: types.SUBMIT_POST_FULFILLED,
       payload: res
     }))
-    .then(() => dispatch({type: types.SET_POST, payload: {title:'',body:'',category:''}}))
     .catch(e => dispatch({type: types.SUBMIT_POST_REJECTED}));
 };

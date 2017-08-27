@@ -6,6 +6,7 @@ import activePost from './activePostReducer';
 import alerts from './alertsReducer';
 import comment from './commentReducer';
 import editPost from './editPostReducer';
+import editComment from './editCommentReducer';
 
 export default combineReducers({
   posts,
@@ -14,5 +15,6 @@ export default combineReducers({
   activePost,
   alerts,
   comment,
-  editPost
+  editPost,
+  editComment
 });

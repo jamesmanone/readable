@@ -34,5 +34,12 @@ export default {
       category: {},
       id: ''
     }
+  },
+  editComment: {
+    comment: {
+      id: '',
+      body: '',
+      author: ''
+    }
   }
 };

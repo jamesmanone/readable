@@ -14,6 +14,8 @@ export default (state=initialState.postForm, action) => {
       return {...state, category: action.payload};
     case types.SET_POST:
       return {...state, ...action.payload};
+    case types.SUBMIT_POST_FULFILLED:
+      return initialState.postForm;
     default:
       return state;
   }
