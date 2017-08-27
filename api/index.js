@@ -32,7 +32,7 @@ router.get('/categories', (req, res) => {
 });
 
 router.post('/categories', bodyParser.json(), (req, res) => {
-  categories.newCategory({name:req.body.category})
+  categories.newCategory(req.body)
     .then(
       (data) => res.send(data),
       (error) => {

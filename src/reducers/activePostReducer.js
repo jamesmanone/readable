@@ -43,19 +43,31 @@ export default (state=initialState.activePost, action) => {
         return state;
       }
     case types.UPVOTE_COMMENT_FULLFILLED:
-      if(state.post.id === action.payload.id) {
+      if(state.post.id === action.payload.post.id) {
         return {
           ...state,
-          post: action.payload
+          post: {
+            ...state.post,
+            comments: state.post.comments
+                        .filter(comment => comment.id !== action.payload.id)
+                        .concat([action.payload])
+                        .sort((a, b) => a.createdAt - b.createdAt)
+          }
         };
       } else {
         return state;
       }
     case types.DOWNVOTE_COMMENT_FULLFILLED:
-      if(state.post.id === action.payload.id) {
+      if(state.post.id === action.payload.post.id) {
         return {
           ...state,
-          post: action.payload
+          post: {
+            ...state.post,
+            comments: state.post.comments
+                        .filter(comment => comment.id !== action.payload.id)
+                        .concat([action.payload])
+                        .sort((a, b) => a.createdAt - b.createdAt)
+          }
         };
       } else {
         return state;
@@ -92,6 +104,7 @@ export default (state=initialState.activePost, action) => {
         }
       };
     case types.EDIT_COMMENT_SUBMIT_FULFILLED:
+      if(state.post.id !== action.payload.post.id) return state;
       return {
         ...state,
         post: {

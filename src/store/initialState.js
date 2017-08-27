@@ -41,5 +41,11 @@ export default {
       body: '',
       author: ''
     }
+  },
+  addCategory: {
+    pending: false,
+    category: {
+      name: ''
+    }
   }
 };

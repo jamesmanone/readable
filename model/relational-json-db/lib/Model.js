@@ -61,7 +61,6 @@ class Model {
       this.db = this.db
         .filter(item => item.id !== doc.id)
         .concat([doc]);
-      this.hash = Object.assign({}, this.hash);
       this.hash[doc.id] = doc;
       try {
         fs.writeFileSync(this.filename, JSON.stringify(this.db))

@@ -7,6 +7,7 @@ import alerts from './alertsReducer';
 import comment from './commentReducer';
 import editPost from './editPostReducer';
 import editComment from './editCommentReducer';
+import addCategory from './addCategoryReducer';
 
 export default combineReducers({
   posts,
@@ -16,5 +17,6 @@ export default combineReducers({
   alerts,
   comment,
   editPost,
-  editComment
+  editComment,
+  addCategory
 });

@@ -38,12 +38,6 @@ const vote = (id, option) => {
       else comment.downVote(true);
       return comment;
     })
-    .then(comment => Post.findById(comment.post.id))
-    .then(post => post.populate('comments'))
-    .then(post => {
-      console.log(post);
-      return post;
-    });
 }
 
 const disableByParent = (token, post) => {
@@ -61,6 +55,8 @@ const edit = (id, update) => {
     .then(comment => {
       if(update.body && update.body !== comment.body)
         comment.body = update.body;
+      if(update.author && update.author !== comment.author)
+        comment.author = update.author;
       return comment.save();
     });
 }
