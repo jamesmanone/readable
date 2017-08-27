@@ -21,6 +21,9 @@ if(process.env.NODE_ENV !== 'production') {
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
+app.get('/favicon.ico', (req, res) =>
+  res.sendFile(path.join(__dirname, 'src', 'images', 'book.png')));
+
 app.use(express.static('dist'));
 
 app.use('/api', require('./api'));

@@ -30,6 +30,7 @@ class Query {
     const model = isArray ?
       this._db.getOne(test[field][0].model) :
       this._db.getOne(test[field].model);
+    if(!model) return this;
     this._results = this._results.map(result => {
       if(!result[field]) return result;
       else if(isArray) {

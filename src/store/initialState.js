@@ -15,7 +15,7 @@ export default {
     title: '',
     body: '',
     author: '',
-    category: '',
+    category: {},
   },
   categories: {
     categories:[],
@@ -31,7 +31,7 @@ export default {
       title: '',
       body: '',
       author: '',
-      category: '',
+      category: {},
       id: ''
     }
   }

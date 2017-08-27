@@ -113,7 +113,7 @@ router.post('/posts/:id', bodyParser.json(), (req, res) => {
 });
 
 router.put('/posts/:id', bodyParser.json(), (req, res) => {
-  posts.edit(req.token, req.params.id, req.body)
+  posts.edit(req.params.id, req.body)
     .then(
       (data) => res.send(data),
       (error) => {

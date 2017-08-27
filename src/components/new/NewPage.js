@@ -25,7 +25,7 @@ class NewPage extends Component {
     title: PropTypes.string,
     body: PropTypes.string,
     author: PropTypes.string,
-    category: PropTypes.string,
+    category: PropTypes.object,
     categories: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired
   }

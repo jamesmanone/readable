@@ -39,7 +39,11 @@ const vote = (id, option) => {
       return comment;
     })
     .then(comment => Post.findById(comment.post.id))
-    .then(post => post.populate('comments'));
+    .then(post => post.populate('comments'))
+    .then(post => {
+      console.log(post);
+      return post;
+    });
 }
 
 const disableByParent = (token, post) => {

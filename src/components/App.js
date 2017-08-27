@@ -17,7 +17,7 @@ class App extends Component {
 
   render() {
     return (
-        <div>
+        <div className="app">
           <Navbar history={this.props.history} categories={this.props.categories}/>
           <Alerts />
           <RouterOutput />

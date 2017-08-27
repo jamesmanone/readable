@@ -7,7 +7,7 @@ const defaultData = [
     title: 'Udacity is the best place to learn React',
     body: 'Everyone says so after all.',
     author: 'thingtwo',
-    category: {id: 'mwofm40sl', model: 'Category'},
+    category: 'mwofm40sl',
     voteScore: 6,
   },
   {
@@ -16,7 +16,7 @@ const defaultData = [
     title: 'Learn Redux in 10 minutes!',
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
-    category: {id: 'kd92kdmcj', model: 'Category'},
+    category: 'kd92kdmcj',
     voteScore: -5,
   }
 ];
@@ -59,19 +59,19 @@ const disable = id => {
 };
 
 const edit = (id, update) => {
-    return Post.find({id}).exec()
-      .then(posts => posts[0].populate('comments'))
-      .then(post => {
-        if(update.body && update.body !== post.body)
-          post.body = update.body;
-        if(update.title && update.title !== post.title)
-          post.title = update.title;
-        if(update.author && update.author !== post.author)
-          post.author = update.author;
-        if(update.category && update.category.id !== post.category.id)
-          post.category.id = update.category.id;
-        return Post.save();
-      });
+  return Post.findById(id)
+    .then(post => {
+      if(update.body && update.body !== post.body)
+        post.body = update.body;
+      if(update.title && update.title !== post.title)
+        post.title = update.title;
+      if(update.author && update.author !== post.author)
+        post.author = update.author;
+      if(update.category && update.category.id !== post.category.id)
+        post.category.id = update.category.id;
+      return post.save();
+    })
+    .then(post => post.populate('comments'));
 };
 
 module.exports = {

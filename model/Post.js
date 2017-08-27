@@ -6,23 +6,21 @@ class PostSchema extends Schema {
     this.title = data.title;
     this.body = data.body;
     this.author = data.author;
-    if(data.category && typeof data.categoty == 'object')
-      this.category = new ObjectId('Category', data.category.id);
-    else if(data.category && typeof data.category == 'string')
-      this.category = new ObjectId('Category', data.category);
-      this.voteScore = data.voteScore === undefined ? 1 : data.voteScore;
+    this.category = new ObjectId('Category', data.category);
+    this.voteScore = data.voteScore === undefined ? 1 : data.voteScore;
     this.comments = data.comments || [];
     this.addComment = this.addComment.bind(this);
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
     this.removeComment = this.removeComment.bind(this);
+    this.save = this.save.bind(this);
   }
   addComment(comment) {
     comment.post = this;
     const Comment = this.model.DB.getOne('Comment');
     return new Promise((resolve, reject) => {
       Comment.create(comment, true)
-        .then(newComment => this.comments.push(new ObjectId('Comment', newComment.id)))
+        .then(newComment => this.comments.push(new ObjectId('Comment', newComment)))
         .then(() => this.save())
         .then(resolve, reject);
     });
@@ -45,6 +43,11 @@ class PostSchema extends Schema {
   downVote(auto) {
     this.voteScore--;
     if(auto) this.save();
+  }
+  save() {
+    this.comments = this.comments.map(comment => new ObjectId('Comment', comment));
+    this.model.save(this);
+    return this;
   }
 }
 

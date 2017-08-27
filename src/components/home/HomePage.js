@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 import Posts from './Posts';
 import {
   orderByDate,
@@ -22,12 +21,20 @@ class Home extends Component {
     history: PropTypes.object.isRequired,
     upVote: PropTypes.func.isRequired,
     downVote: PropTypes.func.isRequired,
-    deletePost: PropTypes.func.isRequired
+    deletePost: PropTypes.func.isRequired,
+    categories: PropTypes.array
   };
 
   componentDidMount() {
     if(this.props.orderBy.votes) this.props.orderByVotes();
     else if(this.props.orderBy.date) this.props.orderByDate();
+  }
+
+  navToPost = (evt, postId) => {
+    // Kill navToPost for vote clicks
+    if(evt.target.className.includes('fa') &&
+      !evt.target.className.includes('comments')) return;
+    this.props.history.push(`/post/${postId}`);
   }
 
   render() {
@@ -40,16 +47,19 @@ class Home extends Component {
         orderByVotes={this.props.orderByVotes}
         orderByDate={this.props.orderByDate}
         orderBy={this.props.orderBy}
-        history={this.props.history} />
+        categories={this.props.categories}
+        navToPost={this.navToPost} />
     );
   }
 }
 
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({posts, categories}, {history}) => {
   return {
     posts: posts.posts,
     fetching: posts.fetching,
-    orderBy: posts.orderBy
+    orderBy: posts.orderBy,
+    categories: categories.categories,
+    history
   };
 };
 
@@ -63,4 +73,4 @@ const mapDispatchToProps = dispatch =>
   }, dispatch);
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

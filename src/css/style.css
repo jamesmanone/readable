@@ -1,3 +1,7 @@
+.app {
+  margin-bottom: 150px;
+}
+
 .alerts {
   position: sticky;
   top: 20px;
@@ -17,8 +21,16 @@
   color: darkred;
 }
 
+.negative:hover {
+  color: red;
+}
+
 .positive {
   color: darkgreen;
+}
+
+.positive:hover {
+  color: lightgreen;
 }
 
 .fa {
@@ -48,9 +60,26 @@
   color: #333;
 }
 
+.fa-comments:hover {
+  color: #5a5a5a;
+}
+
 .fa-trash {
   margin-right: 10px;
   color: darkred;
+}
+
+.fa-trash:hover {
+  color: red;
+}
+
+.fa-pencil {
+  margin-right: 10px;
+  color: #c4be23;
+}
+
+.fa-pencil:hover {
+  color: yellow;
 }
 
 .mr10 {

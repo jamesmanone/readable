@@ -42,6 +42,11 @@ export default (state=initialState.editPost, action) => {
       };
     case types.EDIT_SUBMIT_FULLFILLED:
       return initialState.editPost;
+    case types.EDIT_GET_POST_FULLFILLED:
+      return {
+        ...state,
+        post: action.payload
+      };
     default:
       return state;
   }

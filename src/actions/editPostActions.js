@@ -21,12 +21,13 @@ export const categoryChange = categoryId => dispatch => {
 export const setPost = post => dispatch =>
   dispatch({type: types.EDIT_SET_POST, payload: post});
 
-export const submitForm = post => dispatch => {
+export const submitForm = (post, history) => dispatch => {
   api.editPost(post)
     .then(post => {
       dispatch({type: types.EDIT_SUBMIT_FULLFILLED, payload: post});
       pushAlert('success', 'Post Updated')(dispatch);
       resetOrder(dispatch);
+      history.push(`/post/${post.id}`);
     })
     .catch(() => pushAlert('danger', 'There was a problem updating the post'));
 };

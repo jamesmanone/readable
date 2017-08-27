@@ -6,9 +6,7 @@ class CommentSchema extends Schema {
     this.body = data.body;
     this.author = data.author;
     this.voteScore = data.voteScore === undefined ? 1 : data.voteScore;
-    this.post = typeof data.post === 'string' ?
-      new ObjectId('Post', data.post) :
-      new ObjectId('Post', data.post.id);
+    this.post = new ObjectId('Post', data.post);
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
   }

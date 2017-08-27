@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { makeDisplayDate } from '../../utils';
 import { ListGroupItem, DropdownButton, MenuItem } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
 const Post = props => {
   const { post } = props;
-  const { voteScore, id, title, createdAt, author, comments } = post;
+  console.log(post);
+  const { voteScore, id, title, createdAt, author, comments, category } = post;
   return (
-    <ListGroupItem header={title} onClick={(evt) => {
-      // Kill nav on vote click
-      if(evt.target.className.includes('fa') &&
-        !evt.target.className.includes('comments')) return;
-      props.history.push(`/post/${post.id}`);
-    }}>
-      <span className="pull-left">{author} on {makeDisplayDate(createdAt)}</span>
+    <ListGroupItem header={title} onClick={(evt) => props.navToPost(evt, post.id)}>
+      <span className="pull-left">
+        By {author} on {makeDisplayDate(createdAt)} in {props.categories.filter(cat => cat.id === category.id)[0].name || 'error'}
+      </span>
       <span className="pull-right">
+        <Link to={`/post/${id}/edit`}><FontAwesome name="pencil" /></Link>
         <FontAwesome name="trash" onClick={() => props.onDeletePost(id)} />
         <FontAwesome name="comments" /><span className="mr10 grey">{comments.length}</span>
         <FontAwesome name="arrow-down" onClick={() => props.onDownVote(id)} />
@@ -31,7 +31,8 @@ const Post = props => {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
+  navToPost: PropTypes.func.isRequired,
   onUpVote: PropTypes.func.isRequired,
   onDownVote: PropTypes.func.isRequired,
   onDeletePost: PropTypes.func.isRequired

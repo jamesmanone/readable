@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import Home from './home/HomePage';
 import Categories from './categories/CategoriesPage';
 import New from './new/NewPage';
