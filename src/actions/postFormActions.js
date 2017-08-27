@@ -1,42 +1,33 @@
 import * as types from './actionTypes';
 import * as api from '../api';
+import store from '../store';
 
-export const changeTitle = title => {
-  return dispatch =>
-    dispatch({type: types.CHANGE_TITLE, payload: title});
+export const changeTitle = title => dispatch =>
+  dispatch({type: types.CHANGE_TITLE, payload: title});
+
+export const changeBody = body => dispatch =>
+  dispatch({type: types.CHANGE_BODY, payload: body});
+
+export const changeAuthor = author => dispatch =>
+  dispatch({type: types.CHANGE_AUTHOR, payload: author});
+
+export const changeCategory = category => dispatch => {
+  category = store.getState().categories.categories.filter(cat => cat.id === category)[0];
+  dispatch({type: types.CHANGE_CATEGORY, payload: category});
 };
 
-export const changeBody = body => {
-  return dispatch =>
-    dispatch({type: types.CHANGE_BODY, payload: body});
-};
+export const setPost = post => dispatch =>
+  dispatch({type: types.SET_POST, payload: post});
 
-export const changeAuthor = author => {
-  return dispatch =>
-    dispatch({type: types.CHANGE_AUTHOR, payload: author});
-};
-
-export const changeCategory = category => {
-  return dispatch =>
-    dispatch({type: types.CHANGE_CATEGORY, payload: category});
-};
-
-export const setPost = post => {
-  return dispatch =>
-    dispatch({type: types.SET_POST, payload: post});
-};
-
-export const submitPost = post => {
-  return dispatch => {
-    dispatch({type: types.SUBMIT_POST_PENDING});
-    const timestamp = Date.now();
-    post = {...post, timestamp};
-    return api.submitPost(post)
-      .then(res => dispatch({
-        type: types.SUBMIT_POST_FULFILLED,
-        payload: res
-      }))
-      .then(() => dispatch({type: types.SET_POST, payload: {title:'',body:'',category:''}}))
-      .catch(e => dispatch({type: types.SUBMIT_POST_REJECTED}));
-  };
+export const submitPost = post => dispatch => {
+  dispatch({type: types.SUBMIT_POST_PENDING});
+  const timestamp = Date.now();
+  post = {...post, timestamp};
+  return api.submitPost(post)
+    .then(res => dispatch({
+      type: types.SUBMIT_POST_FULFILLED,
+      payload: res
+    }))
+    .then(() => dispatch({type: types.SET_POST, payload: {title:'',body:'',category:''}}))
+    .catch(e => dispatch({type: types.SUBMIT_POST_REJECTED}));
 };

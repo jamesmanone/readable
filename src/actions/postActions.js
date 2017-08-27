@@ -9,62 +9,45 @@ export const resetOrder = dispatch => {
   else if(order.date) orderByDate()(dispatch);
 };
 
-export const getAllPosts = () => {
-  return dispatch => {
-    dispatch({type: types.FETCH_POSTS_PENDING});
-    api.getAll()
-      .then(res => {
-        dispatch({
-                      type: types.FETCH_POSTS_FULFILLED,
-                      payload: res
-                    });
-        resetOrder(dispatch);
-      })
-      .catch(e => dispatch({type: types.FETCH_POSTS_REJECTED}));
-  };
-};
-
-export const orderByDate = () => {
-  return dispatch => {
-    dispatch({type: types.ORDER_POSTS_BY_DATE});
-  };
-};
-
-export const orderByVotes = () => {
-  return dispatch => {
-    dispatch({type: types.ORDER_POSTS_BY_VOTES});
-  };
-};
-
-export const downVote = postId => {
-  return dispatch => {
-    api.downVote(postId)
-      .then(res => {
-        dispatch({type: types.POST_DOWNVOTE, payload: res});
-        resetOrder(dispatch);
-        pushAlert('warning', 'I hope that post was as awful as you say')(dispatch);
+export const getAllPosts = () => dispatch => {
+  dispatch({type: types.FETCH_POSTS_PENDING});
+  api.getAll()
+    .then(res => {
+      dispatch({
+        type: types.FETCH_POSTS_FULFILLED,
+        payload: res
       });
-  };
+      resetOrder(dispatch);
+    })
+    .catch(e => dispatch({type: types.FETCH_POSTS_REJECTED}));
 };
 
-export const upVote = postId => {
-  return dispatch => {
-    api.upVote(postId)
-      .then(res => {
-        dispatch({type: types.POST_UPVOTE, payload: res});
-        resetOrder(dispatch);
-        pushAlert('success', 'Upvote sucessfull')(dispatch);
-      });
-  };
-};
+export const orderByDate = () => dispatch =>
+  dispatch({type: types.ORDER_POSTS_BY_DATE});
 
-export const deletePost = postId => {
-  return dispatch => {
-    api.deletePost(postId)
-      .then(() => {
-        dispatch({type: types.DELETE_POST, payload: postId});
-        pushAlert('success', 'Post deleted')(dispatch);
-        resetOrder(dispatch);
-      });
-  };
-};
+export const orderByVotes = () => dispatch =>
+  dispatch({type: types.ORDER_POSTS_BY_VOTES});
+
+export const downVote = postId => dispatch =>
+  api.downVote(postId)
+    .then(res => {
+      dispatch({type: types.POST_DOWNVOTE, payload: res});
+      resetOrder(dispatch);
+      pushAlert('warning', 'I hope that post was as awful as you say')(dispatch);
+    });
+
+export const upVote = postId => dispatch =>
+  api.upVote(postId)
+    .then(res => {
+      dispatch({type: types.POST_UPVOTE, payload: res});
+      resetOrder(dispatch);
+      pushAlert('success', 'Upvote sucessfull')(dispatch);
+    });
+
+export const deletePost = postId => dispatch =>
+  api.deletePost(postId)
+    .then(() => {
+      dispatch({type: types.DELETE_POST, payload: postId});
+      pushAlert('success', 'Post deleted')(dispatch);
+      resetOrder(dispatch);
+    });
