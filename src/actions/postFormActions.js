@@ -26,5 +26,5 @@ export const submitPost = post => dispatch => {
       type: types.SUBMIT_POST_FULFILLED,
       payload: res
     }))
-    .catch(e => dispatch({type: types.SUBMIT_POST_REJECTED}));
+    .catch(() => dispatch({type: types.SUBMIT_POST_REJECTED}));
 };

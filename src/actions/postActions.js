@@ -19,7 +19,7 @@ export const getAllPosts = () => dispatch => {
       });
       resetOrder(dispatch);
     })
-    .catch(e => dispatch({type: types.FETCH_POSTS_REJECTED}));
+    .catch(() => dispatch({type: types.FETCH_POSTS_REJECTED}));
 };
 
 export const orderByDate = () => dispatch =>

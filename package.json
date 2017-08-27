@@ -1,7 +1,7 @@
 {
   "name": "Readable",
   "version": "0.0.1",
-  "description": "A Udacity React Project",
+  "description": "A Udacity React/Redux Project",
   "main": "server.js",
   "scripts": {
     "start": "npm-run-all --parallel lint:watch serve",
@@ -36,7 +36,6 @@
     "eslint-plugin-react": "^7.1.0",
     "eslint-watch": "^3.1.2",
     "express": "^4.15.2",
-    "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
     "nodemon": "^1.11.0",

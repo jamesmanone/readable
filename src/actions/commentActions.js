@@ -19,7 +19,7 @@ export const submitComment = comment => dispatch => {
       });
       pushAlert('success', 'Your comment was posted')(dispatch);
     })
-    .catch(e => {
+    .catch(() => {
       dispatch({type: types.SUBMIT_COMMENT_REJECTED});
       pushAlert('warning', 'Something\'s gone wrong. :/')(dispatch);
     });
@@ -47,7 +47,7 @@ export const downVoteComment = comment => dispatch =>
 
 export const deleteComment = comment => dispatch =>
   api.deleteComment(comment.id)
-    .then(res => {
+    .then(() => {
       dispatch({
         type: types.DELETE_COMMENT_FULFILLED,
         payload: comment.id

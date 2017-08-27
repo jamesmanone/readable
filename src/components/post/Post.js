@@ -14,7 +14,6 @@ const Post = props => {
     body,
     author,
     createdAt,
-    comments,
     category,
     voteScore
   } = props.post;
@@ -34,7 +33,7 @@ const Post = props => {
       </div>
       <p>{body}</p>
       <p><small>
-        Written by {author} on {makeDisplayDate(createdAt)}
+        Written by {author} on {makeDisplayDate(createdAt)} in {category}
       </small></p>
       <hr />
       <Col md={5}>

@@ -7,7 +7,6 @@ import {
   ControlLabel,
   Button
 } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
 
 
 const EditComment = props => {
