@@ -27,7 +27,8 @@ class PostPage extends Component {
     upVote: PropTypes.func.isRequired,
     downVote: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    categories: PropTypes.array.isRequired
   }
 
   componentDidMount() {
@@ -56,8 +57,9 @@ class PostPage extends Component {
   }
 
   render() {
-    return (this.props.post.post && (
+    return (
       <Post post={this.props.post.post}
+            categories={this.props.categories}
             onDeletePost={this.onDeletePost}
             onUpVote={this.props.upVote}
             onDownVote={this.props.downVote}
@@ -65,7 +67,7 @@ class PostPage extends Component {
             onCommentChange={this.onCommentChange}
             onAuthorChange={this.onAuthorChange}
             onCommentSubmit={this.onCommentSubmit} />
-    )) || null;
+    );
   }
 
 }
@@ -73,7 +75,8 @@ class PostPage extends Component {
 const mapStateToProps = state => {
   return {
     post: state.activePost,
-    comment: state.comment
+    comment: state.comment,
+    categories: state.categories.categories
   };
 };
 

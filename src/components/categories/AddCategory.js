@@ -12,9 +12,11 @@ const AddCategory = props => (
                    disabled={props.addPending}
                    value={props.newCategory}
                    onChange={props.onCategoryChange}
-                   placeholder="New Category Name" />
+                   placeholder="Add new category" />
     </FormGroup>
-    <Button disabled={props.addPending} type="submit" bsSize="sm" bsStyle="success">Submit</Button>
+    <span className="pull-right">
+      <Button disabled={props.addPending} type="submit" bsSize="sm" bsStyle="success">Submit</Button>
+    </span>
   </form>
 );
 

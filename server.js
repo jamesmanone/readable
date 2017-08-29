@@ -19,10 +19,12 @@ if(process.env.NODE_ENV !== 'production') {
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
+
+
+  app.get('/favicon.ico', (req, res) =>
+    res.sendFile(path.join(__dirname, 'src', 'images', 'book.png')));
 }
 
-app.get('/favicon.ico', (req, res) =>
-  res.sendFile(path.join(__dirname, 'src', 'images', 'book.png')));
 
 app.use(express.static('dist'));
 
@@ -40,8 +42,9 @@ if(process.env.NODE_ENV !== 'production') {
 
 if(process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
-    res.sendFile('dist/index.html')
-  })
+    const filename = path.join(__dirname, 'dist', 'index.html')
+    res.sendFile(filename);
+  });
 }
 
 

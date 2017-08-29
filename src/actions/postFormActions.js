@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as api from '../api';
 import store from '../store';
+import { pushAlert } from './alertActions';
 
 export const changeTitle = title => dispatch =>
   dispatch({type: types.CHANGE_TITLE, payload: title});
@@ -19,12 +20,21 @@ export const changeCategory = category => dispatch => {
 export const setPost = post => dispatch =>
   dispatch({type: types.SET_POST, payload: post});
 
-export const submitPost = post => dispatch => {
+export const submitPost = history => dispatch => {
+  const { title, body, author, category } = store.getState().postForm;
+  if(!(title && body && author && category.id)) return pushAlert('danger', 'All fields required')(dispatch);
   dispatch({type: types.SUBMIT_POST_PENDING});
-  api.submitPost(post)
-    .then(res => dispatch({
+  api.submitPost({title, body, author, category})
+    .then(res => {
+      dispatch({
       type: types.SUBMIT_POST_FULFILLED,
       payload: res
-    }))
-    .catch(() => dispatch({type: types.SUBMIT_POST_REJECTED}));
+      });
+    pushAlert('success', 'Message posted!')(dispatch);
+    history.push('/');
+    })
+    .catch(() => {
+      dispatch({type: types.SUBMIT_POST_REJECTED});
+      pushAlert('warning', 'Something went wrong. Please try again')(dispatch);
+    });
 };

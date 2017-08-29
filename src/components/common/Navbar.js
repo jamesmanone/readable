@@ -32,7 +32,7 @@ class NavBar extends Component {
               <MenuItem onSelect={() => this.navigate('/categories')}>All Categories</MenuItem>
               <MenuItem divider />
               {this.props.categories && this.props.categories.slice(0, 20).map(category => (
-                <MenuItem key={category.name} onSelect={() => this.navigate(`categories/${category.id}`)}>{category.name}</MenuItem>
+                <MenuItem key={category.id} onSelect={() => this.navigate(`/${category.name}`)}>{category.name}</MenuItem>
               ))}
             </NavDropdown>
           </Nav>

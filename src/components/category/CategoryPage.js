@@ -11,19 +11,20 @@ import {
   deletePost
 } from '../../actions/postActions';
 
-class Home extends Component {
+
+class Category extends Component {
   static propTypes = {
-    posts: PropTypes.array.isRequired,
-    fetching: PropTypes.bool.isRequired,
-    orderBy: PropTypes.object.isRequired,
-    orderByDate: PropTypes.func.isRequired,
-    orderByVotes: PropTypes.func.isRequired,
+    posts: PropTypes.array,
     history: PropTypes.object.isRequired,
+    category: PropTypes.string.isRequired,
+    categories: PropTypes.array.isRequired,
+    orderByVotes: PropTypes.func.isRequired,
+    orderByDate: PropTypes.func.isRequired,
     upVote: PropTypes.func.isRequired,
     downVote: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    categories: PropTypes.array
-  };
+    orderBy: PropTypes.object.isRequired
+  }
 
   componentDidMount() {
     if(this.props.orderBy.votes) this.props.orderByVotes();
@@ -34,12 +35,13 @@ class Home extends Component {
     // Kill navToPost for vote clicks
     if(evt.target.className.includes('fa') &&
       !evt.target.className.includes('comments')) return;
-    this.props.history.push(`/post/${postId}`);
+    this.props.history.push(`/${this.props.category}/${postId}`);
   }
 
   render() {
+    const category = this.props.categories.filter(category => category.name === this.props.category)[0];
     return (
-      <Posts posts={this.props.posts}
+      <Posts posts={this.props.posts.filter(post => post.category.id === category.id)}
              onUpVote={this.props.upVote}
              onDownVote={this.props.downVote}
              onDeletePost={this.props.deletePost}
@@ -47,30 +49,30 @@ class Home extends Component {
              orderByDate={this.props.orderByDate}
              orderBy={this.props.orderBy}
              categories={this.props.categories}
-             title="Posts"
+             title={category.name}
              navToPost={this.navToPost} />
     );
   }
+
 }
 
-const mapStateToProps = ({posts, categories}, {history}) => {
+const mapStateToProps = ({posts, categories}, ownProps) => {
   return {
     posts: posts.posts,
-    fetching: posts.fetching,
     orderBy: posts.orderBy,
-    categories: categories.categories,
-    history
+    history: ownProps.history,
+    category: ownProps.match.params.category,
+    categories: categories.categories
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    orderByVotes,
     orderByDate,
+    orderByVotes,
     upVote,
     downVote,
     deletePost
   }, dispatch);
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

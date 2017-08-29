@@ -14,11 +14,12 @@ const Post = props => {
     body,
     author,
     createdAt,
-    category,
     voteScore
   } = props.post;
+  const category = props.categories.filter(category => category.id === props.post.category.id)[0];
 
   return (
+    props.post.title && (
     <div>
       <h1>{title}</h1>
       <div className="pull-right">
@@ -33,7 +34,7 @@ const Post = props => {
       </div>
       <p>{body}</p>
       <p><small>
-        Written by {author} on {makeDisplayDate(createdAt)} in {category}
+        Written by {author} on {makeDisplayDate(createdAt)} in {category && category.name}
       </small></p>
       <hr />
       <Col md={5}>
@@ -47,12 +48,13 @@ const Post = props => {
 
     </div>
 
-  );
+  ) || <FontAwesome name="spinner" spin /> );
 };
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  post: PropTypes.object,
   comment: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
   onCommentSubmit: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,
   onAuthorChange: PropTypes.func.isRequired,

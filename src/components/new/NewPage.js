@@ -12,7 +12,6 @@ import {
 } from '../../actions/postFormActions';
 import { pushAlert } from '../../actions/alertActions';
 import PostForm from '../common/PostForm';
-import store from '../../store';
 
 class NewPage extends Component {
   static propTypes = {
@@ -38,17 +37,9 @@ class NewPage extends Component {
 
   onAuthorChange = evt => this.props.changeAuthor(evt.target.value);
 
-  onSubmitForm = async evt => {
+  onSubmitForm = evt => {
     evt.preventDefault();
-    const { title, body, author, category } = store.getState().postForm;
-    // Checking this.props always shows the default values. I do not know why.
-    if(!(title && body && author && category)) {
-      this.props.pushAlert('danger', 'All fields are required!');
-    } else {
-      await this.props.submitPost({title, body, author, category});
-      this.props.pushAlert('success', 'Your message was posted!');
-      this.props.history.push('/');
-    }
+    this.props.submitPost(this.props.history);
   }
 
   render() {

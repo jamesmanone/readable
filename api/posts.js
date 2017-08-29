@@ -34,7 +34,7 @@ const getAll = () => {
 };
 
 const add = post => {
-  return Post.create(post, true)
+  return Post.create(post, true);
 };
 
 const vote = (id, option) => {

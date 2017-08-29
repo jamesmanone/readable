@@ -76,7 +76,7 @@ class Model {
       obj || reject();
       const doc = new this.schema(obj);
       doc.injectModel(this);
-      if(auto) doc.save().then(resolve, reject);
+      if(auto) this.save(doc).then(resolve, reject);
       else resolve(doc);
     });
   }

@@ -32,9 +32,9 @@ const PostForm = props => {
           <FormGroup controlId="category">
             <ControlLabel srOnly>Category</ControlLabel>
             <FormControl componentClass="select"
-                         placeholder="Category"
                          value={props.category.id}
                          onChange={props.onCategoryChange}>
+              <option value="">Category</option>
               {props.categories.length &&
                props.categories.map(category =>
                  <option key={category.id} value={category.id}>{category.name}</option>

@@ -72,6 +72,7 @@ router.post('/posts', bodyParser.json(), (req, res) => {
     .then(
       (data) => res.send(data),
       (error) => {
+        console.log(error);
         res.status(500).send({
          error: 'There was an error.'
        });
