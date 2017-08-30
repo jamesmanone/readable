@@ -30,11 +30,11 @@ class Home extends Component {
     else if(this.props.orderBy.date) this.props.orderByDate();
   }
 
-  navToPost = (evt, postId) => {
+  navToPost = (evt, postId, category) => {
     // Kill navToPost for vote clicks
     if(evt.target.className.includes('fa') &&
       !evt.target.className.includes('comments')) return;
-    this.props.history.push(`/post/${postId}`);
+    this.props.history.push(`/${category}/${postId}`);
   }
 
   render() {

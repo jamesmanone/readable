@@ -17,7 +17,6 @@ class Routes extends Component {
           <Route path="/new" component={New} />
           <Route path="/categories" component={Categories} />
           <Route path="/post/:postId/edit" component={Edit} />
-          <Route path="/post/:postId" component={Post} />
           <Route path="/:category/:postId" component={Post} />
           <Route path="/:category" component={Category} />
         </Switch>

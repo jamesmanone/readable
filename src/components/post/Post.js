@@ -16,7 +16,10 @@ const Post = props => {
     createdAt,
     voteScore
   } = props.post;
-  const category = props.categories.filter(category => category.id === props.post.category.id)[0];
+  let category;
+  if(props.post && props.post.category) {
+    category = props.categories.filter(category => category.id === props.post.category.id)[0];
+  }
 
   return (
     props.post.title && (

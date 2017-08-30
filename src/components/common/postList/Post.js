@@ -8,9 +8,11 @@ import FontAwesome from 'react-fontawesome';
 const Post = props => {
   const { post } = props;
   const { voteScore, id, title, createdAt, author, comments } = post;
-  const category = props.categories.filter(cat => cat.id === post.category.id)[0];
+  const category = props.categories && props.post && props.post.category ? props.categories.filter(cat => cat.id === post.category.id)[0] : null;
+  const categoryName = category ? category.name : 'post';
+
   return (
-    <ListGroupItem header={title} onClick={(evt) => props.navToPost(evt, post.id)}>
+    <ListGroupItem header={title} onClick={(evt) => props.navToPost(evt, post.id, categoryName)}>
       <span className="pull-left">
         By {author} on {makeDisplayDate(createdAt)} {(category && `in ${category.name}`)  || ''}
       </span>
